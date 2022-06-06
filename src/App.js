@@ -45,13 +45,13 @@ const getCoursesList = () => {
 
 function App() {
   const [courses, setCourses] = useState([]);
-  useEffect(() => {
+  useEffectOnce(() => {
     console.log('=> useEffect')
     getCoursesList().then(setCourses)
     return () => {
       console.log('=> UnMount')
     }
-  }, [])
+  })
   return (
     <div className="App">
       <header className="App-header">
