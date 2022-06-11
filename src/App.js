@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
+import background from './back.jpeg';
 import './App.css';
 
 const getCoursesList = () => {
@@ -21,6 +22,7 @@ function App() {
   }, [])
   return (
     <div className="App">
+      <img src={background} className="App-background" alt="background" />
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
