@@ -17,6 +17,9 @@ serviceWorkerRegistration.register({
     onUpdate: (...p) => {
         console.log('=> onUpdate', ...p)
     },
+    onSuccess: (...p) => {
+        console.log('=> onSuccess', ...p)
+    },
 });
 
 // If you want to start measuring performance in your app, pass a function

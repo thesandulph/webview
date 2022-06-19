@@ -53,13 +53,13 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
-  console.log('=> registerValidSW 3.1', swUrl, config)
+  console.log('=> registerValidSW 3.2', swUrl, config)
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
       console.log('=> registration', registration)
       registration.onupdatefound = () => {
-        console.log('=> onupdatefound')
+        console.log('=> onupdatefound', navigator.serviceWorker.controller)
         const installingWorker = registration.installing;
         if (installingWorker == null) {
           return;
