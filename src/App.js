@@ -11,7 +11,7 @@ const getCoursesList = () => {
       });
 }
 
-function App() {
+const App = () => {
   const [courses, setCourses] = useState([]);
   useEffect(() => {
     console.log('=> useEffect')
@@ -43,6 +43,6 @@ function App() {
       </header>
     </div>
   );
-}
+};
 
 export default App;
