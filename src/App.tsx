@@ -24,6 +24,7 @@ const App = () => {
                 [key]: value,
             }
         }, {});
+        console.log('=====>', qp.platform)
         if (qp.platform) {
             bridge.core.setup(qp.platform)
         }

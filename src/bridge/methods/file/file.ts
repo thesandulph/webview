@@ -14,6 +14,7 @@ const unsubscribe: UnsubscribeObjectType = {
     },
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const prepareBody = (payload: FileUploadPayloadType): FileUploadBodyType => {
     const bodyValues = Object.keys(payload.httpBody).map((item) => ({
         key: item,
