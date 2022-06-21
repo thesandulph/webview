@@ -57,7 +57,7 @@ const prepareErrorMessage = (code: string | number, message: string): string => 
         case -4:
             return 'خطای نامشخص.';
         case -5:
-            return 'انصراف توسط کاربر.';
+            return '';
         default:
             return 'خطای نامشخص';
     }
@@ -65,20 +65,13 @@ const prepareErrorMessage = (code: string | number, message: string): string => 
 
 export const upload = (payload: FileUploadPayloadType): Promise<any> => {
     return new Promise((resolve, reject) => {
-        console.log('=====> check', bridge.platform === 'android' , ' -:- ', JSON.stringify(payload));
         if (bridge.platform === 'android') {
-            console.log('=====> prepareBody');
             unsubscribe.upload = bridge.subscribeEvent('file.UploadCompleted', (event: any) => {
                 console.log('=====> EVENT', event);
                 unsubscribe.upload();
                 const response = JSON.parse(event);
-                response.errorCode = isNaN(response.errorCode) ? 0 : +response.errorCode;
                 if (response.errorCode) {
-                    let errorMessage = '';
-                    if (response.errorCode !== -5) {
-                        errorMessage = prepareErrorMessage(response.errorCode, response.errorMessage);
-                    }
-                    reject(errorMessage);
+                    reject(prepareErrorMessage(response.errorCode, response.errorMessage));
                 } else {
                     resolve(response);
                 }

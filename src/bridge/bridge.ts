@@ -10,6 +10,8 @@ import {
     pwaBridge,
 } from './native';
 
+declare const window: any;
+
 class Bridge implements IBridgeCore {
     static _platform: PlatformType;
 
@@ -25,12 +27,21 @@ class Bridge implements IBridgeCore {
 
     setup(platform: PlatformType): void {
         this.platform = platform;
+        this.setupWindow();
         this.callAction('webApp.Ready');
+    }
+
+    setupWindow() {
+        window.webApp = {
+            trigger: this.triggerEvent,
+        };
     }
 
     callAction(name: string, payload?: any): void {
         try {
-            console.log('=====> callAction:', name, JSON.stringify(payload))
+            console.log('=====> callAction', this.platform);
+            console.log('=====> callAction name:', name);
+            console.log('=====> callAction payload:', payload);
             if (!this.platform) {
                 throw new Error('Platform property not specified, you must be call `bridge.ready( [PLATFORM] )`, PLATFORM must be one of `android | ios | pwa`');
             }
@@ -54,8 +65,9 @@ class Bridge implements IBridgeCore {
     }
 
     subscribeEvent(name: string, callback: EventCallbackType): UnsubscribeType {
+        console.log('=====> subscribeEvent', name)
         const subscription = (event: any) => {
-            console.log('subscription')
+            console.log('=====> subscribeEvent.subscription', name, JSON.stringify(event))
             callback(event.detail)
         };
         window.addEventListener(name, subscription);

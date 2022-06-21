@@ -1,4 +1,7 @@
-import {BridgeActionType} from '../bridge.types';
+import {
+    BridgeActionType,
+    BridgePwaDataType,
+} from '../bridge.types';
 
 declare const window: any;
 
@@ -25,15 +28,27 @@ const setupWebViewJavascriptBridge = (callback: Function) => {
     setupWebViewJavascriptIframe();
 };
 
-export const iosBridge: BridgeActionType = (action, payload = null) => {
-    const options = {action, value: payload};
+const prepareData = (name: string, payload?: any): BridgePwaDataType => {
+    const data: BridgePwaDataType = {
+        action: name,
+    };
+    if (payload) {
+        data.value = payload;
+    }
+    return data;
+};
+
+export const iosBridge: BridgeActionType = (name, payload?) => {
+    console.log('=====> iosBridge name:', name);
+    console.log('=====> iosBridge payload:', payload);
+    const data = prepareData(name, payload);
     if (window.parent.setupWebViewJavascriptBridge) {
         window.parent.setupWebViewJavascriptBridge((bridge: any) => {
-            bridge.callHandler('doAction', options);
+            bridge.callHandler('doAction', data);
         });
     } else {
         setupWebViewJavascriptBridge((bridge: any) => {
-            bridge.callHandler('doAction', options);
+            bridge.callHandler('doAction', data);
         });
     }
 };

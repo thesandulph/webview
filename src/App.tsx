@@ -16,15 +16,15 @@ const App = () => {
     const [state, setState] = useState({status: '', message: ''});
     const [courses, setCourses] = useState([]);
     useEffect(() => {
-        const [, search] = window.location.search.split('?');
-        const qp: any = search.split('&').reduce((accumulator, item) => {
+        const search = window.location.search || '?';
+        const [, qps] = search.split('?');
+        const qp: any = qps.split('&').reduce((accumulator, item) => {
             const [key, value] = item.split('=');
             return {
                 ...accumulator,
                 [key]: value,
             }
         }, {});
-        console.log('=====>', qp.platform)
         if (qp.platform) {
             bridge.core.setup(qp.platform)
         }
