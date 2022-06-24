@@ -53,7 +53,7 @@ export function register(config) {
 }
 
 function registerValidSW(swUrl, config) {
-  console.log('=====> registerValidSW 6', swUrl, config)
+  console.log('=====> registerValidSW 7', swUrl, config)
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
