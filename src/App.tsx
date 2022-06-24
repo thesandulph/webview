@@ -3,6 +3,7 @@ import {bridge, FileUploadPayloadType} from './bridge';
 import logo from './logo.svg';
 import background from './back.jpeg';
 import './App.css';
+import {useSelector} from "react-redux";
 
 const getCoursesList = () => {
     return fetch('https://mocki.io/v1/6a9f8e88-45d4-447f-b41a-6333731a8fe7')
@@ -15,6 +16,7 @@ const App = () => {
     const [confirm, setConfirm] = useState({status: '', message: ''});
     const [state, setState] = useState({status: '', message: ''});
     const [courses, setCourses] = useState([]);
+    const sw = useSelector(state => state.sw);
     useEffect(() => {
         const search = window.location.search || '?';
         const [, qps] = search.split('?');
@@ -35,12 +37,29 @@ const App = () => {
             <img src={background} className="App-background" alt="background"/>
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.js</code> and save to reload.
-                </p>
+                {sw.updated && (
+                    <>
+                        <div>
+                            There is a new service worker available
+                            <button onClick={() => {
+                                if (sw.registration.waiting) {
+                                    sw.registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+                                    sw.registration.waiting.addEventListener('statechange', e => {
+                                        if (e.target.state === 'activated') {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }
+                            }}>
+                                Update
+                            </button>
+                        </div>
+                        <br/>
+                    </>
+                )}
                 <div>
-                    <button onClick={() => bridge.native.setPageTitle('WebView Improvement')}>Set Page Title to WebView
-                        Improvement
+                    <button onClick={() => bridge.native.setPageTitle('WebView Improvement')}>
+                        Set Page Title to WebView Improvement
                     </button>
                     <br/>
                     <button onClick={() => bridge.loading.display(true)}>Loading</button>
