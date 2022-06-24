@@ -39,9 +39,6 @@ class Bridge implements IBridgeCore {
 
     callAction(name: string, payload?: any): void {
         try {
-            console.log('=====> callAction', this.platform);
-            console.log('=====> callAction name:', name);
-            console.log('=====> callAction payload:', payload);
             if (!this.platform) {
                 throw new Error('Platform property not specified, you must be call `bridge.ready( [PLATFORM] )`, PLATFORM must be one of `android | ios | pwa`');
             }
@@ -65,11 +62,7 @@ class Bridge implements IBridgeCore {
     }
 
     subscribeEvent(name: string, callback: EventCallbackType): UnsubscribeType {
-        console.log('=====> subscribeEvent', name)
-        const subscription = (event: any) => {
-            console.log('=====> subscribeEvent.subscription', name, JSON.stringify(event))
-            callback(event.detail)
-        };
+        const subscription = (event: any) => callback(event.detail);
         window.addEventListener(name, subscription);
         return () => {
             window.removeEventListener(name, subscription);

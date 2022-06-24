@@ -18,11 +18,6 @@ export type BridgeActionType = (name: string, payload?: any) => void;
 
 export type BridgeSubscribeType = (name: string, callback: EventCallbackType) => UnsubscribeType;
 
-export type BridgePwaDataType = {
-    action: string;
-    value?: any;
-};
-
 export interface IBridgeCore {
     platform: PlatformType;
     setup: BridgeSetupType;

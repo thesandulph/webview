@@ -19,10 +19,15 @@ root.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.register({
+    onReady: (registration: any) => {
+        console.log('=> onReady', registration);
+    },
     onUpdate: (registration: any) => {
+        console.log('=> onUpdate', registration);
         store.dispatch(actions.sw.update(registration));
     },
     onSuccess: (registration: any) => {
+        console.log('=> onSuccess', registration);
         store.dispatch(actions.sw.initialize(registration));
     },
 });

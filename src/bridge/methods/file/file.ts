@@ -67,7 +67,6 @@ export const upload = (payload: FileUploadPayloadType): Promise<any> => {
     return new Promise((resolve, reject) => {
         if (bridge.platform === 'android') {
             unsubscribe.upload = bridge.subscribeEvent('file.UploadCompleted', (event: any) => {
-                console.log('=====> EVENT', event);
                 unsubscribe.upload();
                 const response = JSON.parse(event);
                 if (response.errorCode) {

@@ -1,54 +1,36 @@
-import {
-    BridgeActionType,
-    BridgePwaDataType,
-} from '../bridge.types';
+import {BridgeActionType} from '../bridge.types';
 
 declare const window: any;
 
-const setupWebViewJavascriptIframe = () => {
-    const WVJBIframe = document.createElement('iframe');
-    WVJBIframe.style.display = 'none';
-    WVJBIframe.style.width = '0';
-    WVJBIframe.style.border = '3px solid #0f0';
-    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
-    document.documentElement.appendChild(WVJBIframe);
+const setupIosIframe = () => {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.style.width = '0';
+    iframe.style.border = 'unset';
+    iframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+    document.documentElement.appendChild(iframe);
     setTimeout(function () {
-        document.documentElement.removeChild(WVJBIframe);
+        document.documentElement.removeChild(iframe);
     }, 0);
 };
 
-const setupWebViewJavascriptBridge = (callback: Function) => {
-    if ('WebViewJavascriptBridge' in window) {
-        return callback(window.WebViewJavascriptBridge);
-    }
-    if (window.WVJBCallbacks) {
-        return window.WVJBCallbacks.push(callback);
-    }
-    window.WVJBCallbacks = [callback];
-    setupWebViewJavascriptIframe();
-};
-
-const prepareData = (name: string, payload?: any): BridgePwaDataType => {
-    const data: BridgePwaDataType = {
-        action: name,
+const prepareCallback = (name: string, payload?: any): Function => {
+    return (bridge: any) => {
+        bridge.callHandler('doAction', {
+            action: name,
+            ...(payload ? {value: payload} : {})
+        });
     };
-    if (payload) {
-        data.value = payload;
-    }
-    return data;
-};
+}
 
 export const iosBridge: BridgeActionType = (name, payload?) => {
-    console.log('=====> iosBridge name:', name);
-    console.log('=====> iosBridge payload:', payload);
-    const data = prepareData(name, payload);
+    const callback = prepareCallback(name, payload);
     if (window.parent.setupWebViewJavascriptBridge) {
-        window.parent.setupWebViewJavascriptBridge((bridge: any) => {
-            bridge.callHandler('doAction', data);
-        });
+        window.parent.setupWebViewJavascriptBridge(callback);
+    } else if ('WebViewJavascriptBridge' in window) {
+        return callback(window.WebViewJavascriptBridge);
     } else {
-        setupWebViewJavascriptBridge((bridge: any) => {
-            bridge.callHandler('doAction', data);
-        });
+        window.WVJBCallbacks = [...(window.WVJBCallbacks || []), callback];
+        setupIosIframe();
     }
 };

@@ -2,9 +2,10 @@ import {BridgeActionType} from '../bridge.types';
 
 declare const window: any;
 
+const prepareData = (payload?: any): any => {
+    return payload ? JSON.stringify(payload) : undefined;
+};
+
 export const androidBridge: BridgeActionType = (name, payload?) => {
-    console.log('=====> androidBridge name:', name);
-    console.log('=====> androidBridge payload:', payload);
-    const data = payload ? JSON.stringify(payload) : undefined;
-    window.parent.Android.DoAction(name, data);
+    window.parent.Android.DoAction(name, prepareData(payload));
 };
