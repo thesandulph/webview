@@ -37,7 +37,7 @@ const App = () => {
             <img src={background} className="App-background" alt="background"/>
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo"/>
-                {sw.registration.waiting?.state === 'installed' && (
+                {sw.registration?.waiting?.state === 'installed' && (
                     <>
                         <div>
                             There is a new service worker available
