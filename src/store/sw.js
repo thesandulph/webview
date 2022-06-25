@@ -10,7 +10,7 @@ const {actions, reducer} = createSlice({
     name: 'sw',
     initialState: initialState(),
     reducers: {
-        initialize: (state, {payload}) => {
+        ready: (state, {payload}) => {
             state.initialized = !state.initialized;
             state.registration = payload;
             return state;

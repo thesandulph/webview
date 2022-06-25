@@ -21,6 +21,7 @@ root.render(
 serviceWorkerRegistration.register({
     onReady: (registration: any) => {
         console.log('=> onReady', registration);
+        store.dispatch(actions.sw.ready(registration));
     },
     onUpdate: (registration: any) => {
         console.log('=> onUpdate', registration);
@@ -28,7 +29,6 @@ serviceWorkerRegistration.register({
     },
     onSuccess: (registration: any) => {
         console.log('=> onSuccess', registration);
-        store.dispatch(actions.sw.initialize(registration));
     },
 });
 
