@@ -60,7 +60,10 @@ function registerValidSW(swUrl, config) {
       if (config && config.onReady) {
         config.onReady(registration);
       }
-      registration.onupdatefound = () => {
+      registration.addEventListener('updatefound', (...p) => {
+        console.log('=====> EVENT updatefound:', ...p)
+      });
+        registration.onupdatefound = () => {
         console.log('=====> Update: controller:   ', navigator.serviceWorker.controller)
         console.log('=====> Update: registration: ', registration)
         const installingWorker = registration.installing;
