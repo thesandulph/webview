@@ -11,7 +11,6 @@ const getCoursesList = () => {
 }
 
 function App() {
-  const unsubscribers = useRef<any>({});
   const [confirm, setConfirm] = useState({status: '', message: ''});
   const [state, setState] = useState({status: '', message: ''});
   const [courses, setCourses] = useState([]);
@@ -29,16 +28,17 @@ function App() {
       bridge.core.setup(qp.platform, event);
     }
     getCoursesList().then(setCourses)
-    unsubscribers.current.success = event.subscribe('sw:success', (registration) => {
+    const unsubscribers: any = {};
+    unsubscribers.success = event.subscribe('sw:success', (registration) => {
       console.log('=> success REG', registration);
     });
-    unsubscribers.current.update = event.subscribe('sw:update', (registration) => {
+    unsubscribers.update = event.subscribe('sw:update', (registration) => {
       console.log('=> update REG', registration);
     });
 
     return () => {
-      unsubscribers.current.success();
-      unsubscribers.current.update();
+      unsubscribers.success();
+      unsubscribers.update();
     };
   }, [])
   return (
