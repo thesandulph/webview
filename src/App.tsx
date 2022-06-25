@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {event, bridge, FileUploadPayloadType} from './bridge';
 import logo from './logo.svg';
 import './App.css';
