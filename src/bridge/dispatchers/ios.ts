@@ -1,4 +1,4 @@
-import {BridgeActionType} from '../bridge.types';
+import {DispatcherType} from '../bridge.types';
 
 declare const window: any;
 
@@ -23,7 +23,7 @@ const prepareCallback = (name: string, payload?: any): Function => {
     };
 }
 
-export const iosBridge: BridgeActionType = (name, payload?) => {
+export const ios: DispatcherType = (name, payload?) => {
     const callback = prepareCallback(name, payload);
     if (window.parent.setupWebViewJavascriptBridge) {
         window.parent.setupWebViewJavascriptBridge(callback);

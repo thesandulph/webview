@@ -1,34 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
+import {event} from './bridge';
 import './index.css';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import {createStore, actions} from "./store";
 
-const store = createStore();
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 root.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 serviceWorkerRegistration.register({
-    onReady: (registration: any) => {
-        console.log('=> onReady', registration);
-        store.dispatch(actions.sw.ready(registration));
+    onSuccess: (registration: ServiceWorkerRegistration) => {
+        event.broadcast('sw:update');
     },
-    onUpdate: (registration: any) => {
-        console.log('=> onUpdate', registration);
-        store.dispatch(actions.sw.update(registration));
-    },
-    onSuccess: (registration: any) => {
-        console.log('=> onSuccess', registration);
+    onUpdate: (registration: ServiceWorkerRegistration) => {
+        event.broadcast('sw:success');
     },
 });
 
