@@ -12,20 +12,14 @@ const events = {
 };
 
 navigator.serviceWorker.ready.then((registration) => {
-    console.log('=> navigator.serviceWorker.ready:', registration)
+    event.broadcast(events.ready, {type: 'ready', registration});
 });
 
 export const config = {
-    onReady: (registration: ServiceWorkerRegistration) => {
-        console.log('=> SW Config onReady', registration);
-        event.broadcast(events.ready, {type: 'ready', registration});
-    },
     onUpdate: (registration: ServiceWorkerRegistration) => {
-        console.log('=> SW Config onUpdate', registration);
         event.broadcast(events.update, {type: 'update', registration});
     },
     onSuccess: (registration: ServiceWorkerRegistration) => {
-        console.log('=> SW Config onSuccess', registration);
         event.broadcast(events.success, {type: 'success', registration});
     },
 };

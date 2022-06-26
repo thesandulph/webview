@@ -20,13 +20,15 @@ export const useSw = (): UseSwType => {
 
     useEffect(() => {
         const unsubscribe = sw.subscribe((event) => {
-            console.log('=> SW Subscription', event.type, event.registration);
+            console.log('=> sw subscription', event.type, event.registration);
             setRegistration(event.registration);
         });
         return () => {
             unsubscribe();
         };
     }, []);
+
+    console.log('=> sw updated', updated);
 
     return {
         updated,
