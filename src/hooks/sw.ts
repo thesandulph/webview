@@ -28,7 +28,7 @@ export const useSw = (): UseSwType => {
         };
     }, []);
 
-    console.log('=> sw updated', updated);
+    console.log('=> sw updated 2', updated);
 
     return {
         updated,
