@@ -12,9 +12,11 @@ import {
 } from './methods'
 
 export * as event from './event';
+export * as sw from './sw';
 
 export * from './bridge.types';
 export * from './event.types';
+export * from './sw.types';
 export * from './methods/index.types';
 
 export const bridge = {

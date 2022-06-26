@@ -2,7 +2,7 @@ import {DispatcherType} from '../bridge.types';
 
 declare const window: any;
 
-const prepareData = (payload?: any): any => {
+const prepareData = (payload?: any): string | undefined => {
     return payload ? JSON.stringify(payload) : undefined;
 };
 
