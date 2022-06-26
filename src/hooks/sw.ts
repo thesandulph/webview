@@ -20,6 +20,7 @@ export const useSw = (): UseSwType => {
 
     useEffect(() => {
         const unsubscribe = sw.subscribe((event) => {
+            console.log('=> SW Subscription', event.type, event.registration);
             setRegistration(event.registration);
         });
         return () => {
