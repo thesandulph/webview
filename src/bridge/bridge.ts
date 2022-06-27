@@ -26,7 +26,7 @@ class Bridge implements IBridge {
 
     setup(platform: PlatformType, options: SetupOptionsType): void {
         this.platform = platform;
-        this.dispatch = dispatcher[platform];
+        this.dispatch = dispatcher[platform] || this.dispatch;
         this.broadcast = options.broadcast;
         this.subscribe = options.subscribe;
         this.setupWindow();

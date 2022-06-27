@@ -41,10 +41,10 @@ export const hasUpdate = (registration: SwRegistration) => {
     return registration?.waiting?.state === 'installed';
 };
 
-export const skipWaiting = (registration: SwRegistration) => {
+export const skipWaiting = (registration: SwRegistration, reload: boolean) => {
     registration?.waiting?.postMessage({type: 'SKIP_WAITING'});
     registration?.waiting?.addEventListener('statechange', (event: any) => {
-        if (event.target.state === 'activated') {
+        if (reload && event.target.state === 'activated') {
             window.location.reload();
         }
     });

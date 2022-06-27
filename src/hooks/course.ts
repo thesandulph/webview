@@ -10,15 +10,18 @@ export type CourseType = {
 
 export type UseGetCoursesType = {
     courses: CourseType[];
-    getCourses: () => void;
+    getCourses: () => Promise<CourseType[]>;
 };
 
 export const useGetCourses = (): UseGetCoursesType => {
-    const [courses, setCourses] = useState([]);
+    const [courses, setCourses] = useState<CourseType[]>([]);
     const getCourses = useCallback(() => {
         return fetch(COURSES_URL)
-            .then(response => response.json())
-            .then(setCourses)
+            .then((response) => response.json())
+            .then((response) => {
+                setCourses(response);
+                return response;
+            });
     }, []);
     return {
         courses,
