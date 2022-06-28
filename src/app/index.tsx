@@ -24,6 +24,7 @@ const theme = createTheme({
 
 const App = () => {
     const queryParams = useQueryParams(window.location.search);
+    console.log('=> queryParams')
     useDidMount(() => {
         if (queryParams.platform) {
             bridge.core.setup(queryParams.platform as PlatformType, event);

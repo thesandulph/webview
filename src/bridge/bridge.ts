@@ -44,15 +44,16 @@ class Bridge implements IBridge {
     }
 
     dispatch(name: string, payload?: any): void {
-        throw new Error('Platform property not specified, you must be call `bridge.core.setup`, PLATFORM must be one of `android | ios | pwa`');
+        console.error('Platform property not specified, you must be call `bridge.core.setup`, platform must be one of `android | ios | pwa`');
     }
 
     broadcast(name: string, payload?: any): void {
-        throw new Error('triggerEvent method is not defined, you must be call `bridge.core.setup` and define triggerEvent method in options arguments');
+        console.error('broadcast method is not defined, you must be call `bridge.core.setup` and define broadcast method in options arguments');
     }
 
     subscribe(name: string, callback: SubscribeCallbackType): UnsubscribeCallbackType {
-        throw new Error('subscribeEvent method is not defined, you must be call `bridge.core.setup` and define subscribeEvent method in options arguments');
+        console.error('subscribe method is not defined, you must be call `bridge.core.setup` and define subscribe method in options arguments');
+        return () => {};
     }
 }
 

@@ -1,5 +1,3 @@
-import {DispatcherType} from '../bridge.types';
-
 declare const window: any;
 
 const setupIosIframe = () => {
@@ -23,14 +21,18 @@ const prepareCallback = (name: string, payload?: any): Function => {
     };
 }
 
-export const ios: DispatcherType = (name, payload?) => {
-    const callback = prepareCallback(name, payload);
-    if (window.parent.setupWebViewJavascriptBridge) {
-        window.parent.setupWebViewJavascriptBridge(callback);
-    } else if ('WebViewJavascriptBridge' in window) {
-        return callback(window.WebViewJavascriptBridge);
-    } else {
-        window.WVJBCallbacks = [...(window.WVJBCallbacks || []), callback];
-        setupIosIframe();
+export const ios = (name: string, payload?: any) => {
+    try {
+        const callback = prepareCallback(name, payload);
+        if (window.parent.setupWebViewJavascriptBridge) {
+            window.parent.setupWebViewJavascriptBridge(callback);
+        } else if ('WebViewJavascriptBridge' in window) {
+            callback(window.WebViewJavascriptBridge);
+        } else {
+            window.WVJBCallbacks = [...(window.WVJBCallbacks || []), callback];
+            setupIosIframe();
+        }
+    } catch (error) {
+        console.error('Error in ios dispatcher:', error);
     }
 };
