@@ -22,7 +22,7 @@ export const styles = {
         display: 'flex',
     },
     divider: {
-        margin: '8px 0',
+        margin: '8px 0 16px',
         width: '90%',
         maxWidth: 320,
     },
