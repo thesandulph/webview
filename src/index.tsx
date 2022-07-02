@@ -1,9 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {sw} from './bridge';
+import {bridge, event, PlatformType, sw} from './bridge';
+import {parseQueryParams} from './hooks';
 import App from './app';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+
+const queryParams = parseQueryParams(window.location.search);
+if (queryParams.platform) {
+    bridge.core.setup(queryParams.platform as PlatformType, event);
+}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

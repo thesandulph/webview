@@ -24,13 +24,6 @@ const theme = createTheme({
 
 const App = () => {
     const sw = useSw();
-    const queryParams = useQueryParams(window.location.search);
-    useDidMount(() => {
-        if (queryParams.platform) {
-            bridge.core.setup(queryParams.platform as PlatformType, event);
-        }
-    });
-    console.log('=> SW 1', sw);
     useEffect(() => {
         if (sw.updated) {
             sw.skipWaiting();

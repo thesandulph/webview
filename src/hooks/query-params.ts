@@ -1,16 +1,20 @@
 import {useMemo} from 'react';
 
-export type UseQueryParamsType = Record<string, string>;
+export type QueryParamsType = Record<string, string>;
 
-export const useQueryParams = (search = '?'): UseQueryParamsType => {
+export const parseQueryParams = (search = '?'): QueryParamsType => {
+    const query = search.startsWith('?') ? search.split('?')[1] : search;
+    return query.split('&').reduce((accumulator, item) => {
+        const [key, value] = item.split('=');
+        return {
+            ...accumulator,
+            [key]: value,
+        };
+    }, {});
+};
+
+export const useQueryParams = (search: string): QueryParamsType => {
     return useMemo(() => {
-        const query = search.startsWith('?') ? search.split('?')[1] : search;
-        return query.split('&').reduce((accumulator, item) => {
-            const [key, value] = item.split('=');
-            return {
-                ...accumulator,
-                [key]: value,
-            };
-        }, {});
+        return parseQueryParams(search);
     }, [search]);
 };
