@@ -30,7 +30,7 @@ const App = () => {
             bridge.core.setup(queryParams.platform as PlatformType, event);
         }
     });
-    console.log('=> SW', sw);
+    console.log('=> SW 1', sw);
     useEffect(() => {
         if (sw.updated) {
             sw.skipWaiting();
