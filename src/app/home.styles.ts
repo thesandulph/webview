@@ -12,4 +12,12 @@ export const styles = {
     link: {
         textDecoration: 'unset',
     },
+    breadcrumb: {
+        display: 'flex',
+    },
+    divider: {
+        margin: '8px 0 16px',
+        width: '90%',
+        maxWidth: 320,
+    },
 };

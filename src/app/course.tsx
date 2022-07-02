@@ -14,6 +14,9 @@ const Course = () => {
     useDidMount(() => {
         bridge.native.setPageTitle('Course');
         bridge.loading.display(true);
+        bridge.native.handleBack(() => {
+            navigate(-1);
+        });
         getCourses().then((courses) => {
             const course = courses.find(item => item.id.toString() === params.id);
             if (course) {
@@ -33,8 +36,8 @@ const Course = () => {
                 <Button size="small" onClick={() => navigate(-1)}>
                     Courses
                 </Button>
-                <Button size="small" onClick={() => bridge.native.goBack()}>
-                    Exit from WebView
+                <Button size="small" onClick={() => bridge.native.pressBack()}>
+                    Back
                 </Button>
             </Box>
             <Divider sx={styles.divider}/>

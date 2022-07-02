@@ -62,15 +62,15 @@ export const setPageTitle = (title: string) => {
     bridge.dispatch('pageTitle.Set', title);
 };
 
-export const goBack = () => {
+export const back = () => {
     bridge.dispatch('goBack');
 };
 
-export const nativeBack = () => {
+export const pressBack = () => {
     bridge.broadcast('backButton.Pressed');
 };
 
-export const subscribeToBack = (callback: SubscribeCallbackType) => {
+export const handleBack = (callback: SubscribeCallbackType) => {
     unsubscribe.subscribeToBack();
     unsubscribe.subscribeToBack = bridge.subscribe('backButton.Pressed', callback);
 };

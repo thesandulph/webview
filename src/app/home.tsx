@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
-import {Box, Button, Card, CardActions, CardContent, CardMedia, Typography} from '@mui/material';
+import {Box, Button, Card, CardActions, CardContent, CardMedia, Divider, Typography} from '@mui/material';
 import {bridge} from '../bridge';
 import {useDidMount} from '../hooks';
 import {styles} from './home.styles';
@@ -9,9 +9,18 @@ const Home = () => {
     const navigate = useNavigate();
     useDidMount(() => {
         bridge.native.setPageTitle('WebView Home');
+        bridge.native.handleBack(() => {
+            bridge.native.back();
+        });
     });
     return (
         <Box sx={styles.root}>
+            <Box sx={styles.breadcrumb}>
+                <Button size="small" onClick={() => bridge.native.pressBack()}>
+                    Exit
+                </Button>
+            </Box>
+            <Divider sx={styles.divider}/>
             <Card sx={styles.card}>
                 <CardMedia
                     component="img"

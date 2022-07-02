@@ -92,7 +92,7 @@ Method description is here...
 
 <br>
 
-### goBack(): void
+### back(): void
 Method description is here...
    ~~~
    bridge.native.goBack();
@@ -100,7 +100,7 @@ Method description is here...
 
 <br>
 
-### nativeBack(): void
+### pressBack(): void
 Method description is here...
    ~~~
    bridge.native.nativeBack();
@@ -108,7 +108,7 @@ Method description is here...
 
 <br>
 
-### subscribeToBack(callback: [SubscribeCallbackType](./event#subscribecallbacktype)): void
+### handleBack(callback: [SubscribeCallbackType](./event#subscribecallbacktype)): void
 Method description is here...
    ~~~
    const callback = (event) => {

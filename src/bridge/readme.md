@@ -12,8 +12,9 @@ We will discuss all the APIs on the following sections, but first let's jump ont
 
 ## Table of contents
 1. [Getting Started](./documents/getting-started.md)
-2. Service Worker
-3. Bridge Methods
+2. [Service Worker](./documents/sw.md)
+3. [Event](./documents/event.md)
+4. Bridge Methods
    * [core](./documents/core.md)
    * [native](./documents/native.md)
    * [message](./documents/message.md)
@@ -23,4 +24,4 @@ We will discuss all the APIs on the following sections, but first let's jump ont
    * [file](./documents/file.md)
    * [otp](./documents/otp.md)
    * [payment](./documents/payment.md)
-4. [To Do](./documents/todo.md)
+5. [To Do](./documents/todo.md)

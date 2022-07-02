@@ -13,6 +13,9 @@ const Courses = () => {
     useDidMount(() => {
         bridge.native.setPageTitle('Courses List');
         bridge.loading.display(true);
+        bridge.native.handleBack(() => {
+            navigate(-1);
+        });
         getCourses().finally(() => {
             bridge.loading.display(false);
         });
@@ -20,11 +23,11 @@ const Courses = () => {
     return (
         <Box sx={styles.root}>
             <Box sx={styles.breadcrumb}>
-                <Button size="small" onClick={() => navigate(-2)}>
+                <Button size="small" onClick={() => navigate(-1)}>
                     Home
                 </Button>
-                <Button size="small" onClick={() => bridge.native.goBack()}>
-                    Exit from WebView
+                <Button size="small" onClick={() => bridge.native.pressBack()}>
+                    Back
                 </Button>
             </Box>
             <Divider sx={styles.divider}/>
