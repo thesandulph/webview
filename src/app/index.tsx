@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     BrowserRouter,
     Routes,
@@ -9,7 +9,7 @@ import {
     ThemeProvider,
     createTheme,
 } from '@mui/material';
-import {useDidMount, useQueryParams} from '../hooks';
+import {useDidMount, useQueryParams, useSw} from '../hooks';
 import {bridge, event, PlatformType} from '../bridge';
 import Course from './course';
 import Courses from './courses';
@@ -23,12 +23,19 @@ const theme = createTheme({
 });
 
 const App = () => {
+    const sw = useSw();
     const queryParams = useQueryParams(window.location.search);
     useDidMount(() => {
         if (queryParams.platform) {
             bridge.core.setup(queryParams.platform as PlatformType, event);
         }
     });
+    console.log('=> SW', sw);
+    useEffect(() => {
+        if (sw.updated) {
+            sw.skipWaiting();
+        }
+    }, [sw]);
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />

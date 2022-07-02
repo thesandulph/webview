@@ -4,7 +4,7 @@ import {sw, SwRegistration} from '../bridge';
 export type UseSwType = {
     updated: boolean;
     registration: SwRegistration;
-    skipWaiting: (reload: boolean) => void;
+    skipWaiting: (reload?: boolean) => void;
 };
 
 export const useSw = (): UseSwType => {
@@ -14,13 +14,13 @@ export const useSw = (): UseSwType => {
         return sw.hasUpdate(registration);
     }, [registration]);
 
-    const skipWaiting = useCallback((reload: boolean) => {
+    const skipWaiting = useCallback((reload = false) => {
         sw.skipWaiting(registration, reload);
     }, [registration])
 
     useEffect(() => {
-        const unsubscribe = sw.subscribe((event) => {
-            setRegistration(event.registration);
+        const unsubscribe = sw.subscribe((registration) => {
+            setRegistration(registration);
         });
         return () => {
             unsubscribe();

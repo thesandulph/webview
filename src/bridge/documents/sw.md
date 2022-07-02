@@ -78,19 +78,9 @@ type SwRegistration = ServiceWorkerRegistration | null;
 
 <br>
 
-### SwEventType
-~~~
-type SwEventType = {
-    type: SwType;
-    registration: SwRegistration;
-};
-~~~
-
-<br>
-
 ### SwSubscribeCallbackType
 ~~~
-type SwSubscribeCallbackType = (event: SwEventType) => void;
+type SwSubscribeCallbackType = (registration: SwRegistration, type: SwType) => void;
 ~~~
 
 <br>
