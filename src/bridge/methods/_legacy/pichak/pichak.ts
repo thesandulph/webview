@@ -1,8 +1,8 @@
-import {bridge} from '../../bridge';
+import {bridge} from '../../../bridge';
 import {
     SubscribeCallbackType,
     UnsubscribeCallbackRecordType,
-} from '../../event.types';
+} from '../../../event.types';
 import {
     PichakVerifyPinPayloadType,
     PichakEncryptPayloadType,

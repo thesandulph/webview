@@ -1,4 +1,4 @@
-export type MessageType = 'general' | 'info' | 'success' | 'error' | 'fatal';
+export type MessageType =  'info' | 'success' | 'error' | 'fatal';
 
 export type MessageMapType = Record<MessageType, number>;
 

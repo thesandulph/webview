@@ -1,5 +1,5 @@
-import {bridge} from '../../bridge';
-import {UnsubscribeCallbackRecordType} from '../../event.types';
+import {bridge} from '../../../bridge';
+import {UnsubscribeCallbackRecordType} from '../../../event.types';
 import {
     FileUploadBodyType,
     FileUploadPayloadType,

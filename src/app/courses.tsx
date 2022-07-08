@@ -11,13 +11,19 @@ const Courses = () => {
     const navigate = useNavigate();
     const {courses, getCourses} = useGetCourses();
     useDidMount(() => {
-        bridge.native.setPageTitle('Courses List');
-        bridge.loading.display(true);
+        bridge.native.page({
+            title: 'Courses List',
+        });
+        bridge.loading.display({
+            visible: true,
+        });
         bridge.native.handleBack(() => {
             navigate(-1);
         });
         getCourses().finally(() => {
-            bridge.loading.display(false);
+            bridge.loading.display({
+                visible: false,
+            });
         });
     })
     return (

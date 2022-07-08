@@ -1,20 +1,22 @@
 import {bridge} from '../../bridge';
 import {UnsubscribeCallbackRecordType} from '../../event.types';
-import {ConfirmDisplayPayloadType} from './confirm.types';
+import {
+    ConfirmDisplayPayloadType,
+    ConfirmDisplayEventType,
+} from './confirm.types';
 
 const unsubscribe: UnsubscribeCallbackRecordType = {
     displayConfirm: () => {},
 };
 
-export const display = (payload: ConfirmDisplayPayloadType): Promise<any> => {
+export const display = (payload: ConfirmDisplayPayloadType): Promise<void> => {
     return new Promise((resolve, reject) => {
         unsubscribe.displayConfirm();
-        unsubscribe.displayConfirm = bridge.subscribe('confirmBox.Closed',  (event: any) => {
-            if (event === 1) {
-                resolve(event);
-            } else {
-                reject(event)
+        unsubscribe.displayConfirm = bridge.subscribe('confirmBox.Closed',  (event: ConfirmDisplayEventType) => {
+            if (event) {
+                return resolve();
             }
+            return reject();
         });
         bridge.dispatch('confirmBox.Show', {
             title: payload.title,

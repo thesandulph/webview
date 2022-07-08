@@ -1,4 +1,4 @@
-export type SubscribeCallbackType = (event?: any) => void;
+export type SubscribeCallbackType<T = any> = (event?: T) => void;
 
 export type UnsubscribeCallbackType = () => void;
 

@@ -5,43 +5,55 @@ import {
 } from '../../event.types';
 import {
     DeepLinkPayloadType,
-    SharePayloadType,
+    OpenUrlPayloadType,
     FrequentlyInputType,
+    ForegroundCallbackType,
+    PagePayloadType,
+    ShowButtonMapType,
+    ShowButtonCallbackType,
+    ShowButtonPayloadType,
 } from './native.types';
 
 const unsubscribe: UnsubscribeCallbackRecordType = {
-    subscribeToBack: () => {
-    },
-    plusButton: () => {
-    },
-    refreshButton: () => {
-    },
-    foreground: () => {
-    },
-    getData: () => {
-    },
-    setFrequentlyInputData: () => {
-    },
-    payment: () => {
-    },
+    subscribeToBack: () => {},
+    plusButton: () => {},
+    refreshButton: () => {},
+    foreground: () => {},
+    getData: () => {},
+    setFrequentlyInputData: () => {},
+    payment: () => {},
+};
+
+const typeMap: ShowButtonMapType = {
+    custom: 0,
+    plus: 1,
+    refresh: 2,
+    info: 3,
+};
+
+export const showButton = (payload: ShowButtonPayloadType, callback: SubscribeCallbackType<ShowButtonCallbackType>) => {
+    bridge.dispatch('appBarButton.Show', {
+        id: typeMap[payload.type],
+        ...(payload.text ? {text: payload.text} : {}),
+    });
+    unsubscribe.plusButton();
+    unsubscribe.plusButton = bridge.subscribe('appBarButton.Pressed', callback);
+};
+
+export const hideButton = () => {
+    unsubscribe.plusButton();
+    bridge.dispatch('appBarButton.Hide');
 };
 
 export const deepLink = (payload: DeepLinkPayloadType) => {
     bridge.dispatch('openDeepLink', payload);
 };
 
-export const openUrl = (url: string) => {
-    bridge.dispatch('system.OpenUrl', {
-        url,
-        preferredApp: bridge.platform,
-    });
+export const openUrl = (payload: OpenUrlPayloadType) => {
+    bridge.dispatch('system.OpenUrl', payload);
 };
 
-export const share = (payload: SharePayloadType) => {
-    bridge.dispatch('onShare', payload);
-};
-
-export const foreground = (callback: SubscribeCallbackType) => {
+export const foreground = (callback: SubscribeCallbackType<ForegroundCallbackType>) => {
     unsubscribe.foreground();
     unsubscribe.foreground = bridge.subscribe('comeForeground', callback);
 };
@@ -58,8 +70,10 @@ export const setFrequentlyInput = (payload: FrequentlyInputType, callback: Subsc
     bridge.dispatch('getFrequentlyInputData', payload);
 };
 
-export const setPageTitle = (title: string) => {
-    bridge.dispatch('pageTitle.Set', title);
+export const page = (payload: PagePayloadType) => {
+    bridge.dispatch('pageTitle.Set', {
+        title: payload.title
+    });
 };
 
 export const back = () => {
@@ -73,26 +87,4 @@ export const pressBack = () => {
 export const handleBack = (callback: SubscribeCallbackType) => {
     unsubscribe.subscribeToBack();
     unsubscribe.subscribeToBack = bridge.subscribe('backButton.Pressed', callback);
-};
-
-export const showPlusButton = (callback: SubscribeCallbackType) => {
-    bridge.dispatch('plusButton.Show');
-    unsubscribe.plusButton();
-    unsubscribe.plusButton = bridge.subscribe('plusButton.Pressed', callback);
-};
-
-export const hidePlusButton = () => {
-    unsubscribe.plusButton();
-    bridge.dispatch('plusButton.Hide');
-};
-
-export const showRefreshButton = (callback: SubscribeCallbackType) => {
-    bridge.dispatch('refreshButton.Show');
-    unsubscribe.refreshButton();
-    unsubscribe.refreshButton = bridge.subscribe('refreshButton.Pressed', callback);
-};
-
-export const hideRefreshButton = () => {
-    unsubscribe.refreshButton();
-    bridge.dispatch('refreshButton.Hide');
 };

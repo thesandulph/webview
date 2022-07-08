@@ -6,8 +6,7 @@ import {
 import {PaymentStartPayloadType} from './payment.types';
 
 const unsubscribe: UnsubscribeCallbackRecordType = {
-    start: () => {
-    },
+    start: () => {},
 };
 
 export const start = (payload: PaymentStartPayloadType, callback: SubscribeCallbackType): void => {

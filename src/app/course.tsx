@@ -12,19 +12,27 @@ const Course = () => {
     const [course, setCourse] = useState<CourseType | null>(null);
     const {getCourses} = useGetCourses();
     useDidMount(() => {
-        bridge.native.setPageTitle('Course');
-        bridge.loading.display(true);
+        bridge.native.page({
+            title: 'Course',
+        });
+        bridge.loading.display({
+            visible: true,
+        });
         bridge.native.handleBack(() => {
             navigate(-1);
         });
         getCourses().then((courses) => {
             const course = courses.find(item => item.id.toString() === params.id);
             if (course) {
-                bridge.native.setPageTitle(`Course: ${course.name}`);
+                bridge.native.page({
+                    title: `Course: ${course.name}`,
+                });
                 setCourse(course);
             }
         }).finally(() => {
-            bridge.loading.display(false);
+            bridge.loading.display({
+                visible: false,
+            });
         });
     });
     return (

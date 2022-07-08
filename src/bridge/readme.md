@@ -17,11 +17,9 @@ We will discuss all the APIs on the following sections, but first let's jump ont
 4. Bridge Methods
    * [core](./documents/core.md)
    * [native](./documents/native.md)
-   * [message](./documents/message.md)
    * [confirm](./documents/confirm.md)
    * [loading](./documents/loading.md)
-   * [qrCode](./documents/qr-code.md)
-   * [file](./documents/file.md)
-   * [otp](./documents/otp.md)
+   * [message](./documents/message.md)
    * [payment](./documents/payment.md)
+   * [qrCode](./documents/qr-code.md)
 5. [To Do](./documents/todo.md)

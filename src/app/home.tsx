@@ -8,7 +8,9 @@ import {styles} from './home.styles';
 const Home = () => {
     const navigate = useNavigate();
     useDidMount(() => {
-        bridge.native.setPageTitle('WebView Home');
+        bridge.native.page({
+            title: 'WebView Home',
+        });
         bridge.native.handleBack(() => {
             bridge.native.back();
         });

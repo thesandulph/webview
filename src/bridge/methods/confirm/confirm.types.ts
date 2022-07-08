@@ -4,3 +4,5 @@ export type ConfirmDisplayPayloadType = {
     resolveButton: string;
     rejectButton: string;
 };
+
+export type ConfirmDisplayEventType = 0 | 1;
