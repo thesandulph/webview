@@ -9,8 +9,7 @@ import {
     ThemeProvider,
     createTheme,
 } from '@mui/material';
-import {useDidMount, useQueryParams, useSw} from '../hooks';
-import {bridge, event, PlatformType} from '../bridge';
+import {useSw} from '../hooks';
 import Course from './course';
 import Courses from './courses';
 import Home from './home';
