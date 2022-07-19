@@ -72,7 +72,7 @@ export const setFrequentlyInput = (payload: FrequentlyInputType, callback: Subsc
 
 export const page = (payload: PagePayloadType) => {
     bridge.dispatch('pageTitle.Set', {
-        title: payload.title
+        title: payload.title,
     });
 };
 
