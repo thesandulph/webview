@@ -25,7 +25,8 @@ const App = () => {
     const sw = useSw();
     useEffect(() => {
         if (sw.updated) {
-            sw.skipWaiting();
+            console.log('=> has update without skip waiting')
+            // sw.skipWaiting();
         }
     }, [sw]);
     return (
