@@ -24,7 +24,7 @@ const theme = createTheme({
 const App = () => {
     const sw = useSw();
     useEffect(() => {
-        console.log('=> check SW')
+        console.log('=> check SW 2')
         if (sw.updated) {
             console.log('=> has update without skip waiting')
             // sw.skipWaiting();
