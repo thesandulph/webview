@@ -1,15 +1,13 @@
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
 import {Box, Card, CardContent, CardMedia, Divider, Typography} from '@mui/material';
 import {bridge} from '../bridge';
 import {useDidMount} from '../hooks';
 import {styles} from './home.styles';
 
 const WebApp = () => {
-    const navigate = useNavigate();
     useDidMount(() => {
         bridge.native.page({
-            title: 'WebApp',
+            title: 'WebApp Main Page',
         });
     });
     return (
