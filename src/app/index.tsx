@@ -13,6 +13,7 @@ import {useSw} from '../hooks';
 import Course from './course';
 import Courses from './courses';
 import Home from './home';
+import WebApp from './web-app';
 import Wrapper from './wrapper';
 
 const theme = createTheme({
@@ -47,6 +48,10 @@ const App = () => {
                         <Route
                             path="courses/:id"
                             element={<Course />}
+                        />
+                        <Route
+                            path="app/"
+                            element={<WebApp />}
                         />
                     </Routes>
                 </BrowserRouter>
